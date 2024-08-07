@@ -38,8 +38,6 @@ def makeWord (numLetters):
 #######################
 # Purpose: loop over numLetters
 #   to make a random word
-# Ass: 13 July 
-# resign 21 July
 #######################
   mod = 'makeWord '
   i = 0
