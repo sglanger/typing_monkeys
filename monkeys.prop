@@ -1,4 +1,9 @@
-maxWordLen:  12
-numWords: 1000
-2LetterWords: 
+# Author: Steve Langer Aug 2024
+# this is the properties file for monkeys.py 
+
+[init]
+maxWordLen=12
+numWords=1000
+2LetterWords=['a', 'I', 'to', 'at', 'as', 'on', 'go', 'my', 'me', 'up', 'he', 'so', 'in', 'an', 'it', 'is', 'or', 'by', 'us', 'we', 'if']
+
 

@@ -12,6 +12,32 @@ import random
 import enchant
 import os
 import datetime
+import configparser as CP
+
+def init():
+#############################
+# Purpose: read props file 
+# for init Vars
+##########################
+  mod ="monkey:init: "
+
+  startPath = os.path.abspath(os.getcwd())
+  propPath = startPath + '/monkeys.prop'
+  
+  try:
+    config=CP.RawConfigParser()
+    config.read(propPath)
+    a = config.items('init')
+    #print (a)
+    maxWords = a[0][1]
+    maxLen = a[1][1]
+    wordList = a[2][1]
+  except:
+    print (mod, 'could not read props, exiting')
+    sys.exit()
+
+  return maxWords,  maxLen,  wordList
+
 
 def makeList():
 ######################
@@ -21,7 +47,7 @@ def makeList():
 #  https://stackoverflow.com/questions/14992521/python-weighted-random
 #  https://en.wikipedia.org/wiki/Letter_frequency
 #####################
-  mod = "makeList: "
+  mod = "monkey:makeList: "
   global list, lenList
   list = ['a'] * 820 + ['b'] * 150 + ['c'] * 280 + ['d'] * 430 + \
     ['e'] * 1270 + ['f'] * 220 + ['g'] * 200 + ['h'] * 610 + ['i'] * 700 \
@@ -39,7 +65,7 @@ def makeWord (numLetters):
 # Purpose: loop over numLetters
 #   to make a random word
 #######################
-  mod = 'makeWord '
+  mod = 'monkey:makeWord: '
   i = 0
   word = ""
   
@@ -59,13 +85,12 @@ def makeWord (numLetters):
 # Refs
 #  https://stackoverflow.com/questions/3788870/how-to-check-if-a-word-is-an-english-word-with-python
 #####################
-mod = "monkeys"
+mod = "monkey:main: "
 os.system('clear')
 
 #### Init block for running the monkeys
+maxWordLen, numWords, wordList = init()
 raw = open ("rawText.txt", 'w')
-numWords = 1000000000
-maxWordLen = 12
 i = 0
 startTime = datetime.datetime.now()
 
@@ -87,7 +112,7 @@ for line in Lines:
   word = line.strip()
   # for some obscure reason the Enchant version thinks all single letter and most 2 letter
   # strings are valid words
-  if len(word) > 2 or word in ['a', 'I', 'to', 'at', 'as', 'on', 'go', 'my', 'me', 'up', 'he', 'so', 'in', 'an', 'it', 'is', 'or', 'by', 'us', 'we', 'if'] :
+  if len(word) > 2 or word in wordList :
     if dictReal.check(word) :
       filtered.write(word + '\n')  
 
