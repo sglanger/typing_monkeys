@@ -28,8 +28,10 @@ def makeList():
     + ['j'] * 15 + ['k'] *  77 + ['l'] * 400 + ['m'] * 240 + ['n'] * 670 \
     + ['o'] * 750 + ['p'] * 190 + ['q'] * 9 + ['r'] * 600 + ['s'] * 630 \
     + ['t'] * 910 + ['u'] * 280 + ['v'] * 98 + ['w'] * 240 + ['y'] * 200 + ['z'] * 7
-  
+
+  random.shuffle(list)  
   lenList =  len(list)
+  #print (list)
   return 
 
 def makeWord (numLetters):
@@ -78,7 +80,6 @@ while i < numWords :
 raw.close()
 
 # Now compare raw file to dict
-i = 0
 raw = open ("rawText.txt", 'r')
 filtered = open ("filterText.txt", 'w')
 dictReal = enchant.Dict("en_US")
@@ -96,10 +97,9 @@ raw.close()
 filtered.close()
 
 # show finished product
-endTime = datetime.datetime.now()
 print ('Monkeys are tired.')
 print ("Trials are ", numWords)
-print ('ended   ', endTime)
+print ('ended   ', datetime.datetime.now())
 print ('started ', startTime)
 print (' Results ---- ')
 os.system('cat filterText.txt')
