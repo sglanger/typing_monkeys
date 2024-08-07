@@ -87,7 +87,7 @@ for line in Lines:
   word = line.strip()
   # for some obscure reason the Enchant version thinks all single letter and most 2 letter
   # strings are valid words
-  if len(word) > 2 or word in ['a', 'I', 'to', 'at', 'me', 'in', 'an', 'it', 'is', 'or', 'by', 'us', 'we', 'if'] :
+  if len(word) > 2 or word in ['a', 'I', 'to', 'at', 'as', 'on', 'go', 'my', 'me', 'up', 'he', 'so', 'in', 'an', 'it', 'is', 'or', 'by', 'us', 'we', 'if'] :
     if dictReal.check(word) :
       filtered.write(word + '\n')  
 
