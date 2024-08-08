@@ -13,3 +13,7 @@
 * update the init var block to taste for: max number of Words, max word length
 * after run, compare the raw vs filtred .TXT files
 
+# Run results
+* 100,000 words, 3 seconds, did not shuffle wordList, no sentences
+* 1 Billion words, 520 minutes, list shuffled, multiple sentences (eg "Hes  a ten", "Eaten a wee son", "a foe in a tea cup")
+

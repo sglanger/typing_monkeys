@@ -36,7 +36,7 @@ def init():
     print (mod, 'could not read props, exiting')
     sys.exit()
 
-  return maxWords,  maxLen,  wordList
+  return int(maxWords),  int(maxLen),  wordList
 
 
 def makeList():
@@ -90,6 +90,9 @@ os.system('clear')
 
 #### Init block for running the monkeys
 maxWordLen, numWords, wordList = init()
+check = wordList.split(',')
+check = check[1: -1]
+#print (check)
 raw = open ("rawText.txt", 'w')
 i = 0
 startTime = datetime.datetime.now()
@@ -112,7 +115,8 @@ for line in Lines:
   word = line.strip()
   # for some obscure reason the Enchant version thinks all single letter and most 2 letter
   # strings are valid words
-  if len(word) > 2 or word in wordList :
+  #if len(word) > 2 or word in ['a', 'I', 'to', 'at', 'as', 'on', 'go', 'my', 'me', 'up', 'he', 'so', 'in', 'an', 'it', 'is', 'or', 'by', 'us', 'we', 'if']:
+  if len(word) > 2 or word in check :
     if dictReal.check(word) :
       filtered.write(word + '\n')  
 
@@ -124,7 +128,7 @@ print ('Monkeys are tired.')
 print ("Trials are ", numWords)
 print ('ended   ', datetime.datetime.now())
 print ('started ', startTime)
-print (' Results ---- ')
-os.system('cat filterText.txt')
+print (' Results in filterText.txt ')
+# os.system('cat filterText.txt')
 
 
