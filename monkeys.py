@@ -90,14 +90,14 @@ def makeWord (numLetters):
 #####################
 mod = "monkey:main: "
 os.system('clear')
+startTime = datetime.datetime.now()
 
 #### Init block for running the monkeys
 maxWordLen, numWords, wordList = init()
 raw = open ("rawText.txt", 'w')
 i = 0
-startTime = datetime.datetime.now()
-
-makeList() 
+makeList()
+ 
 while i < numWords :
   word = makeWord(random.randrange(1, maxWordLen))
   raw.write(word + '\n')
