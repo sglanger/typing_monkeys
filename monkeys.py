@@ -36,7 +36,10 @@ def init():
     print (mod, 'could not read props, exiting')
     sys.exit()
 
-  return int(maxWords),  int(maxLen),  wordList
+  check = wordList.split(',')
+  check = check[1: -1]
+  #print (check)
+  return int(maxWords),  int(maxLen),  check
 
 
 def makeList():
@@ -90,9 +93,6 @@ os.system('clear')
 
 #### Init block for running the monkeys
 maxWordLen, numWords, wordList = init()
-check = wordList.split(',')
-check = check[1: -1]
-#print (check)
 raw = open ("rawText.txt", 'w')
 i = 0
 startTime = datetime.datetime.now()
@@ -116,7 +116,7 @@ for line in Lines:
   # for some obscure reason the Enchant version thinks all single letter and most 2 letter
   # strings are valid words
   #if len(word) > 2 or word in ['a', 'I', 'to', 'at', 'as', 'on', 'go', 'my', 'me', 'up', 'he', 'so', 'in', 'an', 'it', 'is', 'or', 'by', 'us', 'we', 'if']:
-  if len(word) > 2 or word in check :
+  if len(word) > 2 or word in wordList :
     if dictReal.check(word) :
       filtered.write(word + '\n')  
 

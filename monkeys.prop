@@ -4,7 +4,7 @@
 [init]
 maxWordLen=9
 numWords=1000
-2LetterWords="-,a,I,to,at,as,on,go,my,me,up,he,so,in,an,it,is,or,by,us,we,if,-"
+2LetterWords="-,a,i,to,at,as,on,go,my,me,up,he,so,in,an,it,is,or,by,us,we,if,-"
 
 
 [multiprocess]

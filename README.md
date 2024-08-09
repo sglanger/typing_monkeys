@@ -10,10 +10,17 @@
 	
 	
 # How to run
-* update the init var block to taste for: max number of Words, max word length
-* after run, compare the raw vs filtred .TXT files
+* edit properties file  to taste for: max number of Words, max word length, number of CPU cores avail
+* after run, compare the raw vs filtered .TXT files
 
-# Run results
+# Run results for single task version
 * 100,000 words, 3 seconds, did not shuffle wordList, no sentences
-* 1 Billion words, 520 minutes, list shuffled, multiple sentences (eg "Hes  a ten", "Eaten a wee son", "a foe in a tea cup")
+* 1 Billion words, 620 minutes, list shuffled, multiple sentences (eg "Hes  a ten", "Eaten a wee son", "a foe in a tea cup")
+
+# next Steps
+* Time permitting setup a 2nd version that multi-processes
+	* convert current monkeys.py to a class
+	* write a new Main that uses multi-process to call class N times
+	* track the PIDs of above
+	* when all PIDs finish, assemble the final fiteredTexts into one big one
 
