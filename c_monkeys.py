@@ -1,5 +1,14 @@
 #!/usr/bin/python3
 
+#### c_Monkey.py ############
+# Author: SG Langer Aug 2024
+#
+# Purpose: demonstrate the power of 
+#	probability to non-math types. This
+#   us a nulti-processor version
+# Ext. depedencies:
+#   monkeys.prop
+###########################
 import random  
 import enchant  
 import os  
@@ -8,16 +17,12 @@ import configparser as CP
   
 class MonkeySimulator:  
     def __init__(self):  
-        self.max_words = 0  
-        self.max_len = 0  
-        self.word_list = []  
+        """Read properties file for initialization variables."""  
+        mod = "monkey:init: "   
         self.letter_list = []  
         self.len_list = 0  
         self.dict_real = enchant.Dict("en_US")  
-  
-    def init(self):  
-        """Read properties file for initialization variables."""  
-        mod = "monkey:init: "  
+   
         start_path = os.path.abspath(os.getcwd())  
         prop_path = os.path.join(start_path, 'monkeys.prop')  
   
@@ -25,12 +30,14 @@ class MonkeySimulator:
             config = CP.RawConfigParser()  
             config.read(prop_path)  
             a = config.items('init')  
-            self.max_words = int(a[0][1])  
-            self.max_len = int(a[1][1])  
+            self.max_words = int(a[1][1])  
+            self.max_len = int(a[0][1])  
             self.word_list = a[2][1].split(',')[1:-1]  
         except Exception as e:  
             print(mod, 'could not read props, exiting:', e)  
             os._exit(1)  
+            
+        return
   
     def make_list(self):  
         """Create a statistically valid array of the English alphabet."""  
@@ -45,6 +52,7 @@ class MonkeySimulator:
         )  
         random.shuffle(self.letter_list)  
         self.len_list = len(self.letter_list)  
+        return
   
     def make_word(self, num_letters):  
         """Generate a random word of specified length."""  
@@ -54,12 +62,11 @@ class MonkeySimulator:
   
     def run(self):  
         """Main method to execute the monkey simulation."""  
+        mod = "monkey:makeList: "  
         os.system('clear')  
         start_time = datetime.datetime.now()  
-  
-        self.init()  
-        self.make_list()  
-  
+    
+        self.make_list()    
         with open("rawText.txt", 'w') as raw:  
             for _ in range(self.max_words):  
                 word = self.make_word(random.randrange(1, self.max_len))  
@@ -78,8 +85,10 @@ class MonkeySimulator:
         print('ended   ', datetime.datetime.now())  
         print('started ', start_time)  
         print('Results in filterText.txt')  
-  
+
+###### Main 
 # Example of how to use the class  
 if __name__ == "__main__":  
+    mod = "c_monkey:main: "  
     simulator = MonkeySimulator()  
     simulator.run()  
