@@ -17,8 +17,12 @@
 * 100,000 words, 3 seconds, did not shuffle wordList, no sentences
 * 1 Billion words, 620 minutes, list shuffled, multiple sentences (eg "Hes  a ten", "Eaten a wee son", "a foe in a tea cup")
 
+# Run results for multi-processing version
+* 8 cores (eg monkeys) doing 1M words each, 20 seconds
+	* came up with "A sea of feces"
+
 # next Steps
-* Time permitting setup a 2nd version that multi-processes
+* __Time permitting setup a 2nd version that multi-processes
 	* __convert current monkeys.py to a class
 	* write a new Main that uses multi-process to call class N times
 	* track the PIDs of above
