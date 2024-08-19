@@ -11,7 +11,7 @@
 ###########################
 import random  
 import enchant  
-import os  
+import os , time, multiprocessing 
 import datetime  
 import configparser as CP  
   
@@ -21,6 +21,8 @@ class MonkeySimulator:
         mod = "monkey:init: "   
         self.letter_list = []  
         self.len_list = 0  
+        self.processes = []  
+        self.queue = multiprocessing.Queue()  
         self.dict_real = enchant.Dict("en_US")  
    
         start_path = os.path.abspath(os.getcwd())  
@@ -33,6 +35,9 @@ class MonkeySimulator:
             self.max_words = int(a[1][1])  
             self.max_len = int(a[0][1])  
             self.word_list = a[2][1].split(',')[1:-1]  
+            
+            a = config.items('multiprocess') 
+            self.cores = int(a[0][1])
         except Exception as e:  
             print(mod, 'could not read props, exiting:', e)  
             os._exit(1)  
@@ -60,19 +65,20 @@ class MonkeySimulator:
         word = ''.join(random.choice(self.letter_list) for _ in range(num_letters))  
         return word  
   
-    def run(self):  
+    def run(self, instance):  
         """Main method to execute the monkey simulation."""  
-        mod = "monkey:makeList: "  
-        os.system('clear')  
+        mod = "monkey:run: "    
         start_time = datetime.datetime.now()  
     
-        self.make_list()    
-        with open("rawText.txt", 'w') as raw:  
+        self.make_list() 
+        rawName = "rawText_" + str(instance) + ".txt"
+        with open(rawName, 'w') as raw:  
             for _ in range(self.max_words):  
                 word = self.make_word(random.randrange(1, self.max_len))  
                 raw.write(word + '\n')  
-  
-        with open("rawText.txt", 'r') as raw, open("filterText.txt", 'w') as filtered:  
+                
+        filterName = "filterText_" + str(instance) + ".txt"
+        with open(rawName, 'r') as raw, open(filterName, 'w') as filtered:  
             lines = raw.readlines()  
             for line in lines:  
                 word = line.strip()  
@@ -84,11 +90,47 @@ class MonkeySimulator:
         print("Trials are ", self.max_words)  
         print('ended   ', datetime.datetime.now())  
         print('started ', start_time)  
-        print('Results in filterText.txt')  
+        print('Results in ', filterName)  
+        print()
+        self.queue.put(instance)  # Notify that this process is done 
+        return
+        
+    def start_processes(self):  
+        for i in range(self.cores):  
+            process = multiprocessing.Process(target=self.run, args=(i,))  
+            self.processes.append(process)  
+            process.start()  
+  
+        # Wait for all processes to complete and track their completion  
+        for _ in range(self.cores):  
+            completed_process_id = self.queue.get()  # Block until a process completes  
+            print(f"Process {completed_process_id} has completed.")  
+  
+        # Optionally, join all processes to ensure they have finished  
+        for process in self.processes:  
+            process.join()  
+            
+        with open('filterText.txt', 'w') as outfile: 
+            i = 0
+            while i < self.cores :
+                filterName = "filterText_" + str(i) + ".txt"
+                rawName = "rawText_" + str(i) + ".txt"
+                with open(filterName, 'r') as infile:  
+                    outfile.write(infile.read())  
+                    outfile.write("\n") 
+                    os.remove(filterName)
+                    os.remove(rawName)
+                i = i+1
+                
+        return    
+            
+   
 
 ###### Main 
 # Example of how to use the class  
 if __name__ == "__main__":  
     mod = "c_monkey:main: "  
-    simulator = MonkeySimulator()  
-    simulator.run()  
+    os.system('clear')
+    
+    my_class_instance = MonkeySimulator()  
+    my_class_instance.start_processes() 
