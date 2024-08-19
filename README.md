@@ -19,7 +19,7 @@
 
 # Run results for multi-processing version
 * 8 cores (eg monkeys) doing 1M words each, 20 seconds
-	* came up with "A sea of feces"
+	* came up with "A sea of feces" and "A den of shit"
 
 # next Steps
 * ??
