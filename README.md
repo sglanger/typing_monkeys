@@ -22,9 +22,5 @@
 	* came up with "A sea of feces"
 
 # next Steps
-* __Time permitting setup a 2nd version that multi-processes
-	* __convert current monkeys.py to a class
-	* write a new Main that uses multi-process to call class N times
-	* track the PIDs of above
-	* when all PIDs finish, assemble the final fiteredTexts into one big one
+* ??
 

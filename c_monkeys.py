@@ -68,7 +68,6 @@ class MonkeySimulator:
     def run(self, instance):  
         """Main method to execute the monkey simulation."""  
         mod = "monkey:run: "    
-        start_time = datetime.datetime.now()  
     
         self.make_list() 
         rawName = "rawText_" + str(instance) + ".txt"
@@ -88,8 +87,6 @@ class MonkeySimulator:
   
         print('Monkeys are tired.')  
         print("Trials are ", self.max_words)  
-        print('ended   ', datetime.datetime.now())  
-        print('started ', start_time)  
         print('Results in ', filterName)  
         print()
         self.queue.put(instance)  # Notify that this process is done 
@@ -131,6 +128,9 @@ class MonkeySimulator:
 if __name__ == "__main__":  
     mod = "c_monkey:main: "  
     os.system('clear')
+    start_time = datetime.datetime.now()
     
     my_class_instance = MonkeySimulator()  
     my_class_instance.start_processes() 
+    print('ended   ', datetime.datetime.now())  
+    print('started ', start_time)  
