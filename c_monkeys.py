@@ -106,7 +106,8 @@ class MonkeySimulator:
         # Optionally, join all processes to ensure they have finished  
         for process in self.processes:  
             process.join()  
-            
+
+	# concat every process filterText_N file to one big one            
         with open('filterText.txt', 'w') as outfile: 
             i = 0
             while i < self.cores :
