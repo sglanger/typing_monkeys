@@ -7,8 +7,7 @@
 * clone the repo in the usual way
 * make sure enchated is installed
 	* if not use "pip install pyenchant"
-	
-	
+		
 # How to run
 * edit properties file  to taste for: max number of Words, max word length, number of CPU cores avail
 * after run, compare the raw vs filtered .TXT files
